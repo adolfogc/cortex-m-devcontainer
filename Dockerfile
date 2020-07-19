@@ -10,12 +10,12 @@ RUN (rm -rf /var/lib/apt/lists/* && \
     echo "deb http://apt.llvm.org/buster/ llvm-toolchain-buster-10 main" >> /etc/apt/sources.list && \
     echo "deb-src http://apt.llvm.org/buster/ llvm-toolchain-buster-10 main" >> /etc/apt/sources.list && \
     apt-get -y update && \
-    apt-get install -y clang-format clang-tidy clang-tools clang libpcre3-dev g++ python3 && \
+    apt-get install -y clang-format clang-tidy clang-tools clang libpcre3-dev g++ python3 python3-setuptools && \
     rm -rf /var/lib/apt/lists/*) && \
 (cd /tmp && \
-    curl -SOL https://github.com/danmar/cppcheck/archive/1.90.tar.gz && \
-    tar xvf 1.90.tar.gz && \
-    cd cppcheck-1.90 && \
+    curl -SOL https://github.com/danmar/cppcheck/archive/2.1.tar.gz && \
+    tar xvf 2.1.tar.gz && \
+    cd cppcheck-2.1 && \
     make MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function" -j4 && \
     make install FILESDIR=/usr/share/cppcheck && \
     rm -rf /tmp/*) && \
