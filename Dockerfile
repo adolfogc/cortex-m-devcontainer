@@ -37,7 +37,7 @@ RUN (rm -rf /var/lib/apt/lists/* && \
     mv tini-static-amd64 /usr/local/bin/tini && \
     chmod u+x /usr/local/bin/tini && \
     rm -rf /tmp/*) && \
-(pip3 install em)
+(pip3 install empy pexpect)
 
 ENTRYPOINT ["/tini", "--"]
 CMD ["/bin/bash"]
