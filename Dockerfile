@@ -9,21 +9,21 @@ RUN (rm -rf /var/lib/apt/lists/* && \
     apt-get -y update && \
     apt-get -y --no-install-recommends install cmake make ninja-build git curl ca-certificates bzip2 coreutils gnupg2 libpcre3-dev g++ && \
     curl -SL https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    echo "deb http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-13 main" >> /etc/apt/sources.list && \
-    echo "deb-src http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-13 main" >> /etc/apt/sources.list && \
+    echo "deb http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-16 main" >> /etc/apt/sources.list && \
+    echo "deb-src http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-16 main" >> /etc/apt/sources.list && \
     apt-get -y update && \
-    apt-get -y install clang-13 clang-tools-13 clang-13-doc libclang-common-13-dev libclang-13-dev libclang1-13 clang-format-13 python3-clang-13 clangd-13 clang-tidy-13 && \
+    apt-get -y install clang-16 clang-tools-16 clang-16-doc libclang-common-16-dev libclang-16-dev libclang1-16 clang-format-16 python3-clang-16 clangd-16 clang-tidy-16 && \
     rm -rf /var/lib/apt/lists/*) && \
 (set -x && \
-    ln -s /usr/bin/clang-13  /usr/local/bin/clang && \
-    ln -s /usr/bin/clang++-13  /usr/local/bin/clang++ && \
-    ln -s /usr/bin/clangd-13 /usr/local/bin/clangd && \
-    ln -s /usr/bin/clang-format-13 /usr/local/bin/clang-format && \
-    ln -s /usr/bin/clang-tidy-13 /usr/local/bin/clang-tidy) && \
+    ln -s /usr/bin/clang-16  /usr/local/bin/clang && \
+    ln -s /usr/bin/clang++-16  /usr/local/bin/clang++ && \
+    ln -s /usr/bin/clangd-16 /usr/local/bin/clangd && \
+    ln -s /usr/bin/clang-format-16 /usr/local/bin/clang-format && \
+    ln -s /usr/bin/clang-tidy-16 /usr/local/bin/clang-tidy) && \
 (cd /tmp && \
-    curl -SOL https://github.com/danmar/cppcheck/archive/2.6.3.tar.gz && \
-    tar xvf 2.6.3.tar.gz && \
-    cd cppcheck-2.6.3 && \
+    curl -SOL https://github.com/danmar/cppcheck/archive/2.10.tar.gz && \
+    tar xvf 2.10.tar.gz && \
+    cd cppcheck-2.10 && \
     make MATCHCOMPILER=yes FILESDIR=/usr/share/cppcheck HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function" -j4 && \
     make install FILESDIR=/usr/share/cppcheck && \
     rm -rf /tmp/*) && \
