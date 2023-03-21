@@ -7,7 +7,7 @@ RUN (rm -rf /var/lib/apt/lists/* && \
     echo "Acquire::http::No-Cache true;" >> /etc/apt/apt.conf.d/99fixbadproxy && \
     echo "Acquire::BrokenProxy true;" >> /etc/apt/apt.conf.d/99fixbadproxy && \
     apt-get -y update && \
-    apt-get -y --no-install-recommends install cmake make ninja-build git curl ca-certificates bzip2 coreutils gnupg2 libpcre3-dev g++ && \
+    apt-get -y --no-install-recommends install cmake make ninja-build git curl ca-certificates bzip2 coreutils gnupg2 libpcre3-dev g++ python3-pip && \
     curl -SL https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
     echo "deb http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-16 main" >> /etc/apt/sources.list && \
     echo "deb-src http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-16 main" >> /etc/apt/sources.list && \
@@ -36,7 +36,8 @@ RUN (rm -rf /var/lib/apt/lists/* && \
     curl -SOL https://github.com/krallin/tini/releases/download/v0.19.0/tini-static-amd64 && \
     mv tini-static-amd64 /usr/local/bin/tini && \
     chmod u+x /usr/local/bin/tini && \
-    rm -rf /tmp/*)
+    rm -rf /tmp/*) && \
+(pip3 install em)
 
 ENTRYPOINT ["/tini", "--"]
 CMD ["/bin/bash"]
